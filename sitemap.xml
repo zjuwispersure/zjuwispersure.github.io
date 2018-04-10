@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/03/20/hexo%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
+    
+    <lastmod>2018-04-10T08:34:19.176Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/04/10/github%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</loc>
+    
+    <lastmod>2018-04-10T08:34:16.642Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/04/10/%E4%BB%8A%E6%97%A5%E5%A4%B4%E6%9D%A1%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%85%A8%E6%96%87%E8%AF%A6%E8%A7%A3/</loc>
+    
+    <lastmod>2018-04-10T08:34:14.947Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/tags/index.html</loc>
     
     <lastmod>2018-04-10T08:15:37.083Z</lastmod>
@@ -9,23 +30,9 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/04/10/github%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</loc>
-    
-    <lastmod>2018-04-10T08:13:30.984Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/categories/index.html</loc>
     
     <lastmod>2018-04-10T08:03:33.803Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/03/20/hexo%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
-    
-    <lastmod>2018-04-10T07:59:47.222Z</lastmod>
     
   </url>
   
