@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="SURE's BLOG" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="什么是/为什么要迁移学习？迁移学习(Transfer learning) 顾名思义就是就是把已学训练好的模型参数迁移到新的模型来帮助新模型训练。考虑到大部分数据或任务是存在相关性的，所以通过迁移学习我们可以将已经学到的模型参数（也可理解为模型学到的知识）通过某种方式来分享给新模型从而加快并优化模型的学习效率不用像大多数网络那样从零学习（starting from scratch，tabula ra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="transfer_learning综述">
+<meta property="og:url" content="http://yoursite.com/2018/06/20/transfer-learning综述/index.html">
+<meta property="og:site_name" content="SURE&#39;s BLOG">
+<meta property="og:description" content="什么是/为什么要迁移学习？迁移学习(Transfer learning) 顾名思义就是就是把已学训练好的模型参数迁移到新的模型来帮助新模型训练。考虑到大部分数据或任务是存在相关性的，所以通过迁移学习我们可以将已经学到的模型参数（也可理解为模型学到的知识）通过某种方式来分享给新模型从而加快并优化模型的学习效率不用像大多数网络那样从零学习（starting from scratch，tabula ra">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=D_S+%3D+%5Cleft%5C%7B+X_S%2C+f_S%28X%29%5Cright%5C%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=T_S">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=D_T%3D+%5Cleft%5C%7B+X_T%2C+f_T%28X%29%5Cright%5C%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=T_T">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=f_T%28%5Ccdot%29">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=D_T">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=D_S">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=T_S">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=D_S%5Cneq+D_T">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=T_S%5Cneq+T_T">
+<meta property="og:updated_time" content="2018-06-22T03:24:47.190Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="transfer_learning综述">
+<meta name="twitter:description" content="什么是/为什么要迁移学习？迁移学习(Transfer learning) 顾名思义就是就是把已学训练好的模型参数迁移到新的模型来帮助新模型训练。考虑到大部分数据或任务是存在相关性的，所以通过迁移学习我们可以将已经学到的模型参数（也可理解为模型学到的知识）通过某种方式来分享给新模型从而加快并优化模型的学习效率不用像大多数网络那样从零学习（starting from scratch，tabula ra">
+<meta name="twitter:image" content="https://www.zhihu.com/equation?tex=D_S+%3D+%5Cleft%5C%7B+X_S%2C+f_S%28X%29%5Cright%5C%7D">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/20/transfer-learning综述/"/>
+
+
+
+
+
+  <title>transfer_learning综述 | SURE's BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SURE's BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/20/transfer-learning综述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sure">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SURE's BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">transfer_learning综述</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-20T20:19:22+08:00">
+                2018-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="什么是-为什么要迁移学习？"><a href="#什么是-为什么要迁移学习？" class="headerlink" title="什么是/为什么要迁移学习？"></a>什么是/为什么要迁移学习？</h2><p>迁移学习(Transfer learning) 顾名思义就是就是把已学训练好的模型参数迁移到新的模型来帮助新模型训练。考虑到大部分数据或任务是存在相关性的，所以通过迁移学习我们可以将已经学到的模型参数（也可理解为模型学到的知识）通过某种方式来分享给新模型从而加快并优化模型的学习效率不用像大多数网络那样从零学习（starting from scratch，tabula rasa）。</p>
+<h2 id="迁移学习的粗略介绍"><a href="#迁移学习的粗略介绍" class="headerlink" title="迁移学习的粗略介绍"></a>迁移学习的粗略介绍</h2><p>早在2009年，Sinno Jialin Pan 和 Qiang Yang 就发表了一篇迁移学习的survey <a href="https://link.zhihu.com/?target=https%3A//www.cse.ust.hk/%7Eqyang/Docs/2009/tkde_transfer_learning.pdf" target="_blank" rel="noopener">[link]</a>。他们将迁移学习通过Source (迁移源) / Target (迁移目标) Domain Label 更细节的分支为以下几个方向：</p>
+<p>&lt;img src=”<a href="https://pic3.zhimg.com/v2-a310d559a75d9fbc4643a9171e373f16_b.jpg" target="_blank" rel="noopener">https://pic3.zhimg.com/v2-a310d559a75d9fbc4643a9171e373f16_b.jpg</a>“ data-caption=”” data-size=”normal” data-rawwidth=”2136” data-rawheight=”1492” class=”origin_image zh-lightbox-thumb” width=”2136” data-original=”<a href="https://pic3.zhimg.com/v2-a310d559a75d9fbc4643a9171e373f16_r.jpg&quot;&gt;![img](https://pic3.zhimg.com/80/v2-a310d559a75d9fbc4643a9171e373f16_hd.jpg" target="_blank" rel="noopener">https://pic3.zhimg.com/v2-a310d559a75d9fbc4643a9171e373f16_r.jpg&quot;&gt;![img](https://pic3.zhimg.com/80/v2-a310d559a75d9fbc4643a9171e373f16_hd.jpg</a>)</p>
+<p>并给出了数学定义：</p>
+<blockquote>
+<p>Given a source domain <img src="https://www.zhihu.com/equation?tex=D_S+%3D+%5Cleft%5C%7B+X_S%2C+f_S%28X%29%5Cright%5C%7D" alt="D_S = \left\{ X_S, f_S(X)\right\}">and learning task <img src="https://www.zhihu.com/equation?tex=T_S" alt="T_S">, a target domain <img src="https://www.zhihu.com/equation?tex=D_T%3D+%5Cleft%5C%7B+X_T%2C+f_T%28X%29%5Cright%5C%7D" alt="D_T= \left\{ X_T, f_T(X)\right\}">and learning task <img src="https://www.zhihu.com/equation?tex=T_T" alt="T_T">, transfer learning aims to help improve the learning of the target predictive function <img src="https://www.zhihu.com/equation?tex=f_T%28%5Ccdot%29" alt="f_T(\cdot)">in <img src="https://www.zhihu.com/equation?tex=D_T" alt="D_T">using the knowledge in <img src="https://www.zhihu.com/equation?tex=D_S" alt="D_S">and <img src="https://www.zhihu.com/equation?tex=T_S" alt="T_S">, where <img src="https://www.zhihu.com/equation?tex=D_S%5Cneq+D_T" alt="D_S\neq D_T">, or <img src="https://www.zhihu.com/equation?tex=T_S%5Cneq+T_T" alt="T_S\neq T_T">.</p>
+</blockquote>
+<p><strong>Inductive Transfer Learning</strong></p>
+<p>Inductive 的语义解释为归纳，我们可以直接理解为学习适用于Target Domain的网络特征。尤其注意，在 inductive 的迁移学习里，我们有 Target Domain 的 Ground Truth Label，这就意味着我们想要迁移的数据所在 Domain 将直接会学习网络和其特征提供指导作用（假设用深度学习方法，则通过Back-progagation方式）。</p>
+<p><strong>*Self-Taught Learning*</strong></p>
+<p>Self-Taught Learning 若直接放在现在深度学习的背景下意义并不明。根据原作者引用的文献来看，他们先从网络上下载大量的图片，通过 Sparse Coding 的方式学习通用普世的图片特征，再直接从中找给定的任务比如图片分类所用的图片特征来做迁移学习。（注意文章发表于09年前，所以那时候 Sparse Coding 的热潮相当于现在 Deep Learning 的热潮）</p>
+<p>我们把这个思想放在现在的深度学习上，有点类同于通过 ImageNet 或其他大型数据集学习到的网络特征运用于一个图片分类或其他基于图片特征的任务。</p>
+<p>而基于 pre-trained model 的网络训练对于 train-from-scratch 的提升有多少，相信大家对于不同的实验任务里有自己的经验。但不可否认，在绝大多数的情况下，有 ImageNet pre-trained 训练的模型在泛化能力上有或多或少的提升。其中有一篇论文也论述了好的初始值对于模型训练的重要性：[<a href="https://link.zhihu.com/?target=https%3A//arxiv.org/pdf/1511.06422.pdf" target="_blank" rel="noopener">ALL YOU NEED IS A GOOD INIT</a>]</p>
+<p>由于神经网络训练局限于一个性质叫 Catastrophic Forgetting，意思是如果我们将 pre-trained 的模型作为初始值训练一个全新的任务，模型之前学习到的特征将灾难性遗忘，也意味着之前网络训练的任务结果将非常糟糕。</p>
+<p>由于这一的性质，所有单一基于最原始的深度学习的任务看上去都像暴力求解，只适用于特定任务，并无法得到像人类一样通向普世的学习特征。</p>
+<p>当然，也有部分工作尝试寻找解决 Catastrophic Forgetting 的方法，认知度较高的是：</p>
+<ul>
+<li><a href="https://link.zhihu.com/?target=https%3A//arxiv.org/pdf/1606.04671.pdf" target="_blank" rel="noopener">Progressive Neural Networks</a>- 通过 Lateral Connection 的方式将一学习好的模型参数通过另一层网络教给一个新的任务。由于在网络设计中，已训练完成的模型将会被 Freeze 因此在 back-propagation 优化参数的方式并不影响已学习完成的网络。这种网络设计很自然的避免了 Catastrophic Forgetting 的出现，但也引出了一些新的问题。</li>
+</ul>
+<ol>
+<li>不断的加入新的任务会引出新的网络分支，以及 lateral connection 分支，这种学习效率显然是很低的，因为我们一次只能学一个任务。</li>
+<li>我们无法确定先学哪个任务将会给后续的任务有一个最好的结果。i.e. 我们不清楚任何关于任务的相关和层级信息，因此找到最优方法需要 n 个任务的排列也就是 n! 种方式，再一次突出了学习效率之低。(better to learn from A -&gt; B or B -&gt; A?)</li>
+</ol>
+<p>&lt;img src=”<a href="https://pic4.zhimg.com/v2-159cdf3858beaee2a5a43da611674fdf_b.jpg" target="_blank" rel="noopener">https://pic4.zhimg.com/v2-159cdf3858beaee2a5a43da611674fdf_b.jpg</a>“ data-size=”normal” data-rawwidth=”452” data-rawheight=”422” class=”origin_image zh-lightbox-thumb” width=”452” data-original=”<a href="https://pic4.zhimg.com/v2-159cdf3858beaee2a5a43da611674fdf_r.jpg&quot;&gt;![img](https://pic4.zhimg.com/80/v2-159cdf3858beaee2a5a43da611674fdf_hd.jpg)Progressive" target="_blank" rel="noopener">https://pic4.zhimg.com/v2-159cdf3858beaee2a5a43da611674fdf_r.jpg&quot;&gt;![img](https://pic4.zhimg.com/80/v2-159cdf3858beaee2a5a43da611674fdf_hd.jpg)Progressive</a> Neural Network / Visualisation</p>
+<ul>
+<li><a href="https://link.zhihu.com/?target=https%3A//arxiv.org/pdf/1612.00796.pdf" target="_blank" rel="noopener">Overcoming catastrophic forgetting in neural networks</a>- 显然 DeepMind 自己也不会满足这样的网络设计，对此问题再次进行研究。这次他们不直接用于 Deep Learning 的 back-propagation 方式而专注于 Bayesian Learning 通过 Full Bayesian posterior distribution 来计算网络参数。他们的方法，Elastic Weight Consolidation (EWC), 通过 Laplace Approximation 的方式来计算 Bayesian 那也无法进行数值计算的 log-likelihood，最后取得相当不错的效果。更多 comment 和介绍可参看这篇博文 <a href="https://link.zhihu.com/?target=http%3A//www.inference.vc/comment-on-overcoming-catastrophic-forgetting-in-nns-are-multiple-penalties-needed-2/" target="_blank" rel="noopener">[link]</a>。</li>
+</ul>
+<p><strong>*Multi-task Learning*</strong></p>
+<p>多任务学习 (multi-task learning) 与上个章节介绍的方向最大的不同是我们需要把 Source 和 Target 两个或者更多任务同时学好。在多任务学习中，任一任务的训练目标都是同等重要的。因此，这里 Source/Target Domain 的分类姑且没有太大意义（除非特定情况）。</p>
+<p>进行多任务学习我们主要希望观察并研究：</p>
+<ol>
+<li>多任务学习是否可以帮助网络学习一个泛化能力更好的特征？</li>
+<li>通过多任务学习，我们能否寻找并理解不同任务的相关性和层级性？</li>
+</ol>
+<p>最简单直接的多任务学习网络就是直接应用一个普通的网络结构在最后输出层前分叉到不同的任务预测层。而这样的设计真的可以帮助网络学习到好的特征么？</p>
+<ul>
+<li><a href="https://link.zhihu.com/?target=https%3A//arxiv.org/pdf/1604.03539.pdf" target="_blank" rel="noopener">Cross-stitch Networks for Multi-task Learning</a>- 这篇文章就直接暴力了测试了所有分叉的可能性，并指出不同的任务在不同的分叉上效果。后续他们提出了一个叫 Cross-Stitch Network 的网络结构，通过矩阵中 linear combination 的方式来融合不同任务里学到的特征。</li>
+</ul>
+<p>&lt;img src=”<a href="https://pic4.zhimg.com/v2-c72bcc474b23c3300ea269f1ea224467_b.jpg" target="_blank" rel="noopener">https://pic4.zhimg.com/v2-c72bcc474b23c3300ea269f1ea224467_b.jpg</a>“ data-caption=”” data-size=”normal” data-rawwidth=”2590” data-rawheight=”518” class=”origin_image zh-lightbox-thumb” width=”2590” data-original=”<a href="https://pic4.zhimg.com/v2-c72bcc474b23c3300ea269f1ea224467_r.jpg&quot;&gt;![img](https://pic4.zhimg.com/80/v2-c72bcc474b23c3300ea269f1ea224467_hd.jpg" target="_blank" rel="noopener">https://pic4.zhimg.com/v2-c72bcc474b23c3300ea269f1ea224467_r.jpg&quot;&gt;![img](https://pic4.zhimg.com/80/v2-c72bcc474b23c3300ea269f1ea224467_hd.jpg</a>)</p>
+<ul>
+<li><a href="https://link.zhihu.com/?target=http%3A//openaccess.thecvf.com/content_ICCV_2017/papers/Doersch_Multi-Task_Self-Supervised_Visual_ICCV_2017_paper.pdf" target="_blank" rel="noopener">Multi-task Self-Supervised Visual Learning</a>- 类似的想法也出现在 Zisserman 最新的文章里。与 Cross-stitch Network 最大的不同是，这篇文章里并未将不同的任务分成不同的网络分支，而使用单一的网络结构，仅仅在基于 ResNet-101 的网络结构尾部 block 3 里的 23个 residual unit 通过 sparse linear combination的方式来输出各自的任务预测层。</li>
+</ul>
+<p>除了网络设计，多任务学习中还有一个 Open Question 就是，如何寻找训练权重？</p>
+<p>由于任务难度和数据集不同的缘故，在进行多任务学习中，有一种情况是网络中学到的特征被某一任务 dominate。一个简单的例子：我们同时训练 MNIST 和 ImageNet。由于我们知道MNIST是一个极其简单的数据集，而ImageNet是一个数据量大且复杂的多的数据集。那么模型训练将飞快的收敛 MNIST 的识别任务，且慢慢变成是基于 MNIST 特征网络的初始值的 ImageNet 训练。</p>
+<p>近期 Kaiming He 提出的 <a href="https://link.zhihu.com/?target=https%3A//arxiv.org/pdf/1708.02002.pdf" target="_blank" rel="noopener">Focal Loss for Dense Object Detection</a>重新刷新了我们对分类和识别任务的认知，尤其对 gradient propagation 的重要性有了新的理解。那么我们能否也找到一种类似的改进 loss function 的方法来帮助网络去训练一个 unbiased feature representation 呢？</p>
+<ul>
+<li><a href="https://link.zhihu.com/?target=https%3A//arxiv.org/pdf/1705.07115.pdf" target="_blank" rel="noopener">Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics</a>- 这篇文章就探讨了这个问题，提出了同样基于 Bayesian 的 maximise log-likelihood 来优化 loss function。</li>
+<li><a href="https://link.zhihu.com/?target=https%3A//arxiv.org/pdf/1711.02257.pdf" target="_blank" rel="noopener">GRADNORM: GRADIENT NORMALIZATION FOR ADAPTIVE LOSS BALANCING IN DEEP MULTITASK NETWORKS</a>- 在最新的 ICLR 2017 会议中也出现了一篇文章讨论这个问题。他们的方法更偏向于解决：如何数值定义什么是一个 easy task。文章的观点是在每个training step，如果你的 training loss 相比较 step 0 的 training loss 越小，那么就越可能是 easy step。 以此通过计算 relative training rate 来更新每个任务的权重。</li>
+</ul>
+<p>对于 Multi-task Learning 的更多介绍可参考这个博文：<a href="https://link.zhihu.com/?target=http%3A//ruder.io/multi-task/" target="_blank" rel="noopener">An Overview of Multi-Task Learning for Deep Learning</a>。</p>
+<p><strong>Transductive Transfer Learning</strong></p>
+<p>Transductive 的字面意思是转导，通常来说要比 inductive transfer learning 要难的多。由于直接缺乏 Target Domain Label，在这个情况，我们只能依赖于 Source Domain 信息来尽可能的训练出泛化能力强的特征。</p>
+<p><strong>*Domain Adaptation / Generalisation*</strong></p>
+<p>Domain Adaptation 目标是学习 domain-invariant feature 使得学习到的特征不受限于 Source Domain 而导致 over-fitting。其主要会测试于 Office Dataset - <a href="https://link.zhihu.com/?target=https%3A//people.eecs.berkeley.edu/%7Ejhoffman/domainadapt/" target="_blank" rel="noopener">Domain Adaptation - UC Berkeley</a>，其中分为三个 Domain 其一是 Amazon 上扒的图片，另外两个是实体拍摄图片但一个高分辨率一个是低分辨率。</p>
+<p>比较具有代表性的作品：</p>
+<ul>
+<li><a href="https://link.zhihu.com/?target=http%3A//proceedings.mlr.press/v37/ganin15.pdf" target="_blank" rel="noopener">Unsupervised Domain Adaptation by Backpropagation</a>- 个人很喜欢这篇文章。这篇文章的新颖点是利用 classifier 在 Source 和 Target Domain 的相似性，通过 Source Domain 的 back-propagation 同时算出 Source 和 Target Domain 的 gradient 并将两者梯度结合来更新 feed-forward 的 feature extractor 。这样的设计会将 feature extractor 在没有 Target Label 的情况下也能学会 Target Domain 的 feature。</li>
+<li><a href="https://link.zhihu.com/?target=http%3A//proceedings.mlr.press/v37/long15.pdf" target="_blank" rel="noopener">Learning Transferable Features with Deep Adaptation Networks</a>- 本文作者是清华大学的 <a href="https://link.zhihu.com/?target=https%3A//scholar.google.com/citations%3Fhl%3Dzh-CN%26user%3D_MjXpXkAAAAJ%26view_op%3Dlist_works%26sortby%3Dpubdate" target="_blank" rel="noopener">Mingsheng Long</a>也是 Domain Adaptation 的专家，可从 Google Scholar 上看出他的近乎所有文章都在研究这个问题。这篇文章包括作者后续的文章里都用到了一个叫作 max mean discrepancies (MMD) 定义为 Source Target Domain 的 feature 距离方式。将此距离包含于 loss function 会有助于网络避免出现 co-variant shift 使得学习到的特征是 domain-invariant。</li>
+</ul>
+<p>因此不可否认，现在尝试解决 Domain Adaptation 的方法都不得不利用 Target Domain 的信息去缩小 co-variant shift. 完全只利用于 Source Domain 的信息仍然是个重要的课题。</p>
+<p><strong>Unsupervised Transfer Learning</strong></p>
+<p>在这个方向可适用于的任务非常有限，比如 Dimension Reduction。由于缺乏 Source Label 因此也无法采用绝大部分的 Deep Learning 方法，（但比如Auto-encoder 是其中一个基于 Deep Learning 的降维方式，但很难归类于 Transfer Learning）。因此这里不展开讨论了。</p>
+<p>关于迁移学习大致概括到此为止，更多相关文献希望读者直接找相关的论文研读。</p>
+<p>后面是我提出一些公开问题，让大家重新思考迁移学习的意义和重要性。</p>
+<h2 id="重新思考1：迁移学习一定有用吗？"><a href="#重新思考1：迁移学习一定有用吗？" class="headerlink" title="重新思考1：迁移学习一定有用吗？"></a>重新思考1：迁移学习一定有用吗？</h2><p>事实上，即使在前文 survey 的数学定义里都提到了迁移学习是 “aim to improve”。但事实上，在特定情况下迁移学习甚至会产生相反的效果。这种情况叫 negative transfer。在进行迁移学习的时候，我们都默认不同的任务具备相关性，但如何定义相关性，如何数学描述任务之间相关性的强弱都是偏向人类的主观决定。我们经常使用 ImageNet 作为 fine-tuning 的 pre-trained model 因为 ImageNet 本身数据集之大保证了学习的网络有较高的泛化性，但如果用的小的数据集呢？结果还会一样么？还是会比从零学习的网络更差？</p>
+<p>e.g. DeepMind 新出的 AlphaGo Zero 就是从零学习的比前一个版本基于人类图谱的 AlphaGo Lee 要强的多。</p>
+<h2 id="重新思考2：多任务学习一定在学通用的特征吗？"><a href="#重新思考2：多任务学习一定在学通用的特征吗？" class="headerlink" title="重新思考2：多任务学习一定在学通用的特征吗？"></a>重新思考2：多任务学习一定在学通用的特征吗？</h2><p>即使有相当多的实验结果表明，多任务学习比单任务学习的准确率较高，或者说泛化能力更强。但是多任务学习是否真正在学通用的特征我们无从得知。也有可能多任务学习仅仅是部分神经元负责负责特定网络，由于这多任务的分配导致网络结构比单任务小了而提高准确度我们也可说不是不可能。如何理解多任务网络结构，如何观察并确认特征的泛化能力也是一个重要的问题。</p>
+<h2 id="一些总结和展望"><a href="#一些总结和展望" class="headerlink" title="一些总结和展望"></a><strong>一些总结和展望</strong></h2><p>迁移学习无疑是机器学习里重要的问题之一。理解迁移学习不仅可以让我们理解学习到的特征而且让我们重新理解了神经网络”学习“的本质和方式。近期在迁移学习上的文章和研究不断的增多，但仍然有很多公开问题值得我们去挖掘和思考。希望这篇回答能给读者对迁移学习有着一定的认知，后期我会继续更新此回答如果有高价值的研究更新。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| left | center | right |</span><br><span class="line">| :--- | :----: | ----: |</span><br><span class="line">| aafaa | bbbbbb | ccccc |</span><br><span class="line">| a    | b      | c     |</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/20/工具合集/" rel="next" title="工具记录">
+                <i class="fa fa-chevron-left"></i> 工具记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">sure</p>
+              <p class="site-description motion-element" itemprop="description">自律给我自由！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-为什么要迁移学习？"><span class="nav-number">1.</span> <span class="nav-text">什么是/为什么要迁移学习？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迁移学习的粗略介绍"><span class="nav-number">2.</span> <span class="nav-text">迁移学习的粗略介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重新思考1：迁移学习一定有用吗？"><span class="nav-number">3.</span> <span class="nav-text">重新思考1：迁移学习一定有用吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重新思考2：多任务学习一定在学通用的特征吗？"><span class="nav-number">4.</span> <span class="nav-text">重新思考2：多任务学习一定在学通用的特征吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些总结和展望"><span class="nav-number">5.</span> <span class="nav-text">一些总结和展望</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sure</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
