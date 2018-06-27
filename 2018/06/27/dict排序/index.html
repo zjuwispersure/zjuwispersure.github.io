@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="SURE's BLOG" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="我们知道Python的内置dictionary数据类型是无序的，通过key来获取对应的value。可是有时我们需要对dictionary中 的item进行排序输出，可能根据key，也可能根据value来排。到底有多少种方法可以实现对dictionary的内容进行排序输出呢？下面摘取了 一些精彩的解决办法。 最简单的方法，这个是按照key值排序：1234def sortedDictValues1(a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dict排序">
+<meta property="og:url" content="http://yoursite.com/2018/06/27/dict排序/index.html">
+<meta property="og:site_name" content="SURE&#39;s BLOG">
+<meta property="og:description" content="我们知道Python的内置dictionary数据类型是无序的，通过key来获取对应的value。可是有时我们需要对dictionary中 的item进行排序输出，可能根据key，也可能根据value来排。到底有多少种方法可以实现对dictionary的内容进行排序输出呢？下面摘取了 一些精彩的解决办法。 最简单的方法，这个是按照key值排序：1234def sortedDictValues1(a">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-27T03:27:32.338Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="dict排序">
+<meta name="twitter:description" content="我们知道Python的内置dictionary数据类型是无序的，通过key来获取对应的value。可是有时我们需要对dictionary中 的item进行排序输出，可能根据key，也可能根据value来排。到底有多少种方法可以实现对dictionary的内容进行排序输出呢？下面摘取了 一些精彩的解决办法。 最简单的方法，这个是按照key值排序：1234def sortedDictValues1(a">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/27/dict排序/"/>
+
+
+
+
+
+  <title>dict排序 | SURE's BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SURE's BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/27/dict排序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sure">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SURE's BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">dict排序</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-27T11:27:17+08:00">
+                2018-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我们知道Python的内置dictionary数据类型是无序的，通过key来获取对应的value。可是有时我们需要对dictionary中 的item进行排序输出，可能根据key，也可能根据value来排。到底有多少种方法可以实现对dictionary的内容进行排序输出呢？下面摘取了 一些精彩的解决办法。</p>
+<h1 id="最简单的方法，这个是按照key值排序："><a href="#最简单的方法，这个是按照key值排序：" class="headerlink" title="最简单的方法，这个是按照key值排序："></a>最简单的方法，这个是按照key值排序：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def sortedDictValues1(adict): </span><br><span class="line">    items = adict.items() </span><br><span class="line">    items.sort() </span><br><span class="line">return [value for key, value in items]</span><br></pre></td></tr></table></figure>
+<h1 id="又一个按照key值排序，貌似比上一个速度要快点"><a href="#又一个按照key值排序，貌似比上一个速度要快点" class="headerlink" title="又一个按照key值排序，貌似比上一个速度要快点"></a>又一个按照key值排序，貌似比上一个速度要快点</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def sortedDictValues2(adict): </span><br><span class="line">keys = adict.keys() </span><br><span class="line">keys.sort() </span><br><span class="line">return [dict[key] for key in keys]</span><br></pre></td></tr></table></figure>
+<h1 id="还是按key值排序，据说更快。。。而且当key为tuple的时候照样适用"><a href="#还是按key值排序，据说更快。。。而且当key为tuple的时候照样适用" class="headerlink" title="还是按key值排序，据说更快。。。而且当key为tuple的时候照样适用"></a>还是按key值排序，据说更快。。。而且当key为tuple的时候照样适用</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def sortedDictValues3(adict): </span><br><span class="line">keys = adict.keys() </span><br><span class="line">keys.sort() </span><br><span class="line">return map(adict.get, keys)</span><br></pre></td></tr></table></figure>
+<h1 id="一行语句搞定："><a href="#一行语句搞定：" class="headerlink" title="一行语句搞定："></a>一行语句搞定：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(k,di[k]) for k in sorted(di.keys())]</span><br></pre></td></tr></table></figure>
+<h1 id="来一个根据value排序的，先把item的key和value交换位置放入一个list中，再根据list每个元素的第一个值，即原来的value值，排序："><a href="#来一个根据value排序的，先把item的key和value交换位置放入一个list中，再根据list每个元素的第一个值，即原来的value值，排序：" class="headerlink" title="来一个根据value排序的，先把item的key和value交换位置放入一个list中，再根据list每个元素的第一个值，即原来的value值，排序："></a>来一个根据value排序的，先把item的key和value交换位置放入一个list中，再根据list每个元素的第一个值，即原来的value值，排序：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def sort_by_value(d): </span><br><span class="line">items=d.items() </span><br><span class="line">backitems=[[v[1],v[0]] for v in items] </span><br><span class="line">backitems.sort() </span><br><span class="line">return [ backitems[i][1] for i in range(0,len(backitems))]</span><br></pre></td></tr></table></figure>
+<h1 id="还是一行搞定："><a href="#还是一行搞定：" class="headerlink" title="还是一行搞定："></a>还是一行搞定：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ v for v in sorted(di.values())]</span><br></pre></td></tr></table></figure>
+<h1 id="用lambda表达式来排序，更灵活："><a href="#用lambda表达式来排序，更灵活：" class="headerlink" title="用lambda表达式来排序，更灵活："></a>用lambda表达式来排序，更灵活：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sorted(d.items(), lambda x, y: cmp(x[1], y[1])), 或反序： </span><br><span class="line">sorted(d.items(), lambda x, y: cmp(x[1], y[1]), reverse=True)</span><br></pre></td></tr></table></figure>
+<h1 id="用sorted函数的key-参数排序："><a href="#用sorted函数的key-参数排序：" class="headerlink" title="用sorted函数的key= 参数排序："></a>用sorted函数的key= 参数排序：</h1><h1 id="按照key进行排序"><a href="#按照key进行排序" class="headerlink" title="按照key进行排序"></a>按照key进行排序</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print sorted(dict1.items(), key=lambda d: d[0])</span><br></pre></td></tr></table></figure>
+<h1 id="按照value进行排序"><a href="#按照value进行排序" class="headerlink" title="按照value进行排序"></a>按照value进行排序</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print sorted(dict1.items(), key=lambda d: d[1])</span><br></pre></td></tr></table></figure>
+<p>下面给出python内置sorted函数的帮助文档：<br>sorted(…)<br>sorted(iterable, cmp=None, key=None, reverse=False) –&gt; new sorted list </p>
+<p>看了上面这么多种对dictionary排序的方法，其实它们的核心思想都一样，即把dictionary中的元素分离出来放到一个list中，对list排序，从而间接实现对dictionary的排序。这个“元素”可以是key，value或者item。</p>
+<p>一上转 </p>
+<p>按照value排序可以用 </p>
+<p>sorted(d.items, key=lambda d:d[1]) </p>
+<p>若版本低不支持sorted </p>
+<p>将key,value 以tuple一起放在一个list中 </p>
+<p>l = [] </p>
+<p>l.append((akey,avalue))… </p>
+<p>用sort（） </p>
+<p>l.sort(lambda a,b :cmp(a[1],b[1]))(cmp前加“-”表示降序排序)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/20/transfer-learning综述/" rel="next" title="transfer_learning综述">
+                <i class="fa fa-chevron-left"></i> transfer_learning综述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">sure</p>
+              <p class="site-description motion-element" itemprop="description">自律给我自由！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#最简单的方法，这个是按照key值排序："><span class="nav-number">1.</span> <span class="nav-text">最简单的方法，这个是按照key值排序：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#又一个按照key值排序，貌似比上一个速度要快点"><span class="nav-number">2.</span> <span class="nav-text">又一个按照key值排序，貌似比上一个速度要快点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#还是按key值排序，据说更快。。。而且当key为tuple的时候照样适用"><span class="nav-number">3.</span> <span class="nav-text">还是按key值排序，据说更快。。。而且当key为tuple的时候照样适用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一行语句搞定："><span class="nav-number">4.</span> <span class="nav-text">一行语句搞定：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#来一个根据value排序的，先把item的key和value交换位置放入一个list中，再根据list每个元素的第一个值，即原来的value值，排序："><span class="nav-number">5.</span> <span class="nav-text">来一个根据value排序的，先把item的key和value交换位置放入一个list中，再根据list每个元素的第一个值，即原来的value值，排序：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#还是一行搞定："><span class="nav-number">6.</span> <span class="nav-text">还是一行搞定：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用lambda表达式来排序，更灵活："><span class="nav-number">7.</span> <span class="nav-text">用lambda表达式来排序，更灵活：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用sorted函数的key-参数排序："><span class="nav-number">8.</span> <span class="nav-text">用sorted函数的key= 参数排序：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#按照key进行排序"><span class="nav-number">9.</span> <span class="nav-text">按照key进行排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#按照value进行排序"><span class="nav-number">10.</span> <span class="nav-text">按照value进行排序</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sure</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

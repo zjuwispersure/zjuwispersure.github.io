@@ -98,7 +98,7 @@
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=T_S">
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=D_S%5Cneq+D_T">
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=T_S%5Cneq+T_T">
-<meta property="og:updated_time" content="2018-06-22T03:24:47.190Z">
+<meta property="og:updated_time" content="2018-06-22T04:01:35.203Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="transfer_learning综述">
 <meta name="twitter:description" content="什么是/为什么要迁移学习？迁移学习(Transfer learning) 顾名思义就是就是把已学训练好的模型参数迁移到新的模型来帮助新模型训练。考虑到大部分数据或任务是存在相关性的，所以通过迁移学习我们可以将已经学到的模型参数（也可理解为模型学到的知识）通过某种方式来分享给新模型从而加快并优化模型的学习效率不用像大多数网络那样从零学习（starting from scratch，tabula ra">
@@ -333,7 +333,144 @@
 
       
         <h2 id="什么是-为什么要迁移学习？"><a href="#什么是-为什么要迁移学习？" class="headerlink" title="什么是/为什么要迁移学习？"></a>什么是/为什么要迁移学习？</h2><p>迁移学习(Transfer learning) 顾名思义就是就是把已学训练好的模型参数迁移到新的模型来帮助新模型训练。考虑到大部分数据或任务是存在相关性的，所以通过迁移学习我们可以将已经学到的模型参数（也可理解为模型学到的知识）通过某种方式来分享给新模型从而加快并优化模型的学习效率不用像大多数网络那样从零学习（starting from scratch，tabula rasa）。</p>
-<h2 id="迁移学习的粗略介绍"><a href="#迁移学习的粗略介绍" class="headerlink" title="迁移学习的粗略介绍"></a>迁移学习的粗略介绍</h2><p>早在2009年，Sinno Jialin Pan 和 Qiang Yang 就发表了一篇迁移学习的survey <a href="https://link.zhihu.com/?target=https%3A//www.cse.ust.hk/%7Eqyang/Docs/2009/tkde_transfer_learning.pdf" target="_blank" rel="noopener">[link]</a>。他们将迁移学习通过Source (迁移源) / Target (迁移目标) Domain Label 更细节的分支为以下几个方向：</p>
+<h2 id="迁移学习的粗略介绍"><a href="#迁移学习的粗略介绍" class="headerlink" title="迁移学习的粗略介绍"></a>迁移学习的粗略介绍</h2><p>早在2009年，Sinno Jialin Pan 和 Qiang Yang 就发表了一篇迁移学习的survey <a href="https://link.zhihu.com/?target=https%3A//www.cse.ust.hk/%7Eqyang/Docs/2009/tkde_transfer_learning.pdf" target="_blank" rel="noopener">[link]</a>。</p>
+<p>各种迁移学习和传统机器学习的关系：</p>
+<table>
+<thead>
+<tr>
+<th>Learning Settings</th>
+<th>Source and Target Domains</th>
+<th>Source and Target Tasks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Traditional Machine Learning</td>
+<td>the same</td>
+<td>the same</td>
+</tr>
+<tr>
+<td>Inductive Transfer Learning</td>
+<td>the same</td>
+<td>different but related</td>
+</tr>
+<tr>
+<td>Unsupervised Transfer Learning</td>
+<td>different but related</td>
+<td>different but related</td>
+</tr>
+<tr>
+<td>Transductive Transfer Learning</td>
+<td>different but related</td>
+<td>the same</td>
+</tr>
+</tbody>
+</table>
+<p>他们将迁移学习通过Source (迁移源) / Target (迁移目标) Domain Label 更细节的分支为以下几个方向：</p>
+<table>
+<thead>
+<tr>
+<th>Transfer Learning Setting</th>
+<th>Related Areas</th>
+<th>Source Domain Labels</th>
+<th>Target Domain Labels</th>
+<th>Tasks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inductive Transfer Learning</td>
+<td>Multi-task Learning</td>
+<td>Available</td>
+<td>Available</td>
+<td>Regression, Classification</td>
+</tr>
+<tr>
+<td></td>
+<td>Self-taught Learning</td>
+<td>Unavailable</td>
+<td>Available</td>
+<td>Regression, Classification</td>
+</tr>
+<tr>
+<td>Transductive Transfer Learning</td>
+<td>Domain Adaptation, Sample Selection Bias, Co-variate Shift</td>
+<td>Available</td>
+<td>Unavailable</td>
+<td>Regression. Classification</td>
+</tr>
+<tr>
+<td>Unsupervised Transfer Learning</td>
+<td></td>
+<td>Unavailable</td>
+<td>Unavailable</td>
+<td>Clustering, Dimensionality, Reduction</td>
+</tr>
+</tbody>
+</table>
+<p>transfer的方法有如下几种：</p>
+<table>
+<thead>
+<tr>
+<th>Transfer Learning Approaches</th>
+<th>Brief Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instance-transfer</td>
+<td>To re-weight some labeled data in the source domain for use in the target domain</td>
+</tr>
+<tr>
+<td>Feature-representation-transfer</td>
+<td>Find a “goog” feature representation that reduces difference between the source and the target domains and the error of classification and regression models</td>
+</tr>
+<tr>
+<td>Parameter-transfer</td>
+<td>Discover shared parameters or priors between the source domain and target domain models, which can benefit for transfer learning</td>
+</tr>
+<tr>
+<td>Relational-knowledge-transfer</td>
+<td>Build mapping of relational knowledge between the source domain and the target domains.Both domains are relational domains and i.i.d assumption is rela</td>
+</tr>
+</tbody>
+</table>
+<p>不同的transfer方法与transfer类别的对比</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Inductive Transfer Learning</th>
+<th>Transductive Transfer Learning</th>
+<th>Unsupervised Transfer Learning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instance-transfer</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p>&lt;img src=”<a href="https://pic3.zhimg.com/v2-a310d559a75d9fbc4643a9171e373f16_b.jpg" target="_blank" rel="noopener">https://pic3.zhimg.com/v2-a310d559a75d9fbc4643a9171e373f16_b.jpg</a>“ data-caption=”” data-size=”normal” data-rawwidth=”2136” data-rawheight=”1492” class=”origin_image zh-lightbox-thumb” width=”2136” data-original=”<a href="https://pic3.zhimg.com/v2-a310d559a75d9fbc4643a9171e373f16_r.jpg&quot;&gt;![img](https://pic3.zhimg.com/80/v2-a310d559a75d9fbc4643a9171e373f16_hd.jpg" target="_blank" rel="noopener">https://pic3.zhimg.com/v2-a310d559a75d9fbc4643a9171e373f16_r.jpg&quot;&gt;![img](https://pic3.zhimg.com/80/v2-a310d559a75d9fbc4643a9171e373f16_hd.jpg</a>)</p>
 <p>并给出了数学定义：</p>
 <blockquote>
@@ -400,7 +537,104 @@
 <p>e.g. DeepMind 新出的 AlphaGo Zero 就是从零学习的比前一个版本基于人类图谱的 AlphaGo Lee 要强的多。</p>
 <h2 id="重新思考2：多任务学习一定在学通用的特征吗？"><a href="#重新思考2：多任务学习一定在学通用的特征吗？" class="headerlink" title="重新思考2：多任务学习一定在学通用的特征吗？"></a>重新思考2：多任务学习一定在学通用的特征吗？</h2><p>即使有相当多的实验结果表明，多任务学习比单任务学习的准确率较高，或者说泛化能力更强。但是多任务学习是否真正在学通用的特征我们无从得知。也有可能多任务学习仅仅是部分神经元负责负责特定网络，由于这多任务的分配导致网络结构比单任务小了而提高准确度我们也可说不是不可能。如何理解多任务网络结构，如何观察并确认特征的泛化能力也是一个重要的问题。</p>
 <h2 id="一些总结和展望"><a href="#一些总结和展望" class="headerlink" title="一些总结和展望"></a><strong>一些总结和展望</strong></h2><p>迁移学习无疑是机器学习里重要的问题之一。理解迁移学习不仅可以让我们理解学习到的特征而且让我们重新理解了神经网络”学习“的本质和方式。近期在迁移学习上的文章和研究不断的增多，但仍然有很多公开问题值得我们去挖掘和思考。希望这篇回答能给读者对迁移学习有着一定的认知，后期我会继续更新此回答如果有高价值的研究更新。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| left | center | right |</span><br><span class="line">| :--- | :----: | ----: |</span><br><span class="line">| aafaa | bbbbbb | ccccc |</span><br><span class="line">| a    | b      | c     |</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>Transfer Learning Approaches</th>
+<th>Brief Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instance-transfer</td>
+<td>To re-weight some labeled data in the source domain for use in the target domain</td>
+</tr>
+<tr>
+<td>Feature-representation-transfer</td>
+<td>Find a “goog” feature representation that reduces difference between the source and the target domains and the error of classification and regression models</td>
+</tr>
+<tr>
+<td>Parameter-transfer</td>
+<td>Discover shared parameters or priors between the source domain and target domain models, which can benefit for transfer learning</td>
+</tr>
+<tr>
+<td>Relational-knowledge-transfer</td>
+<td>Build mapping of relational knowledge between the source domain and the target domains.Both domains are relational domains and i.i.d assumption is rela</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Learning Settings</th>
+<th>Source and Target Domains</th>
+<th>Source and Target Tasks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Traditional Machine Learning</td>
+<td>the same</td>
+<td>the same</td>
+</tr>
+<tr>
+<td>Inductive Transfer Learning</td>
+<td>the same</td>
+<td>different but related</td>
+</tr>
+<tr>
+<td>Unsupervised Transfer Learning</td>
+<td>different but related</td>
+<td>different but related</td>
+</tr>
+<tr>
+<td>Transductive Transfer Learning</td>
+<td>different but related</td>
+<td>the same</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Transfer Learning Setting</th>
+<th style="text-align:left">Related Areas</th>
+<th style="text-align:left">Source Domain Labels</th>
+<th style="text-align:left">Target Domain Labels</th>
+<th style="text-align:left">Tasks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Inductive Transfer Learning</td>
+<td style="text-align:left">Multi-task Learning</td>
+<td style="text-align:left">Available</td>
+<td style="text-align:left">Available</td>
+<td style="text-align:left">Regression, Classification</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">Self-taught Learning</td>
+<td style="text-align:left">Unavailable</td>
+<td style="text-align:left">Available</td>
+<td style="text-align:left">Regression, Classification</td>
+</tr>
+<tr>
+<td style="text-align:left">Transductive Transfer Learning</td>
+<td style="text-align:left">Domain Adaptation, Sample Selection Bias, Co-variate Shift</td>
+<td style="text-align:left">Available</td>
+<td style="text-align:left">Unavailable</td>
+<td style="text-align:left">Regression. Classification</td>
+</tr>
+<tr>
+<td style="text-align:left">Unsupervised Transfer Learning</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Unavailable</td>
+<td style="text-align:left">Unavailable</td>
+<td style="text-align:left">Clustering, Dimensionality, Reduction</td>
+</tr>
+</tbody>
+</table>
 
       
     </div>
@@ -434,6 +668,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/27/dict排序/" rel="prev" title="dict排序">
+                dict排序 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -510,7 +748,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
