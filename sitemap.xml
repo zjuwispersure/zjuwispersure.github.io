@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/07/04/LR%E8%AF%A6%E8%A7%A3/</loc>
+    
+    <lastmod>2018-07-10T09:51:54.462Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/06/20/%E5%B7%A5%E5%85%B7%E5%90%88%E9%9B%86/</loc>
+    
+    <lastmod>2018-07-04T04:03:08.184Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/07/04/markdown%E5%86%99%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</loc>
+    
+    <lastmod>2018-07-04T03:58:09.837Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/06/27/dict%E6%8E%92%E5%BA%8F/</loc>
     
     <lastmod>2018-06-27T03:27:32.338Z</lastmod>
@@ -12,13 +33,6 @@
     <loc>http://yoursite.com/2018/06/20/transfer-learning%E7%BB%BC%E8%BF%B0/</loc>
     
     <lastmod>2018-06-22T04:01:35.203Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/06/20/%E5%B7%A5%E5%85%B7%E5%90%88%E9%9B%86/</loc>
-    
-    <lastmod>2018-06-20T02:57:21.618Z</lastmod>
     
   </url>
   
