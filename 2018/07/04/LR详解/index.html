@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="参考： https://blog.csdn.net/cyh_24/article/details/50359055 LR需要了解的内容提纲  LR原理    LR的求解数学推导    LR的正则化    为什么LR能比线性回归好？  LR与MaxEnt的关系  并行化的LR  #1、 LR原理 一般来说，线性回归不能直接用于分类问题，因为回归是连续性模型，而且受噪音比较大。 我们一般选择logis">
+<meta name="description" content="参考： https://blog.csdn.net/cyh_24/article/details/50359055 LR需要了解的内容提纲  LR原理    LR的求解数学推导    LR的正则化    为什么LR能比线性回归好？  LR与MaxEnt的关系  并行化的LR  1、 LR原理一般来说，线性回归不能直接用于分类问题，因为回归是连续性模型，而且受噪音比较大。 我们一般选择logisti">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LR详解">
 <meta property="og:url" content="http://yoursite.com/2018/07/04/LR详解/index.html">
 <meta property="og:site_name" content="SURE&#39;s BLOG">
-<meta property="og:description" content="参考： https://blog.csdn.net/cyh_24/article/details/50359055 LR需要了解的内容提纲  LR原理    LR的求解数学推导    LR的正则化    为什么LR能比线性回归好？  LR与MaxEnt的关系  并行化的LR  #1、 LR原理 一般来说，线性回归不能直接用于分类问题，因为回归是连续性模型，而且受噪音比较大。 我们一般选择logis">
+<meta property="og:description" content="参考： https://blog.csdn.net/cyh_24/article/details/50359055 LR需要了解的内容提纲  LR原理    LR的求解数学推导    LR的正则化    为什么LR能比线性回归好？  LR与MaxEnt的关系  并行化的LR  1、 LR原理一般来说，线性回归不能直接用于分类问题，因为回归是连续性模型，而且受噪音比较大。 我们一般选择logisti">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/Users/yanglijuan/Desktop/v1.png">
 <meta property="og:image" content="http://yoursite.com/Users/yanglijuan/Desktop/v2.png">
-<meta property="og:updated_time" content="2018-07-10T09:51:54.462Z">
+<meta property="og:updated_time" content="2018-07-10T12:09:45.844Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LR详解">
-<meta name="twitter:description" content="参考： https://blog.csdn.net/cyh_24/article/details/50359055 LR需要了解的内容提纲  LR原理    LR的求解数学推导    LR的正则化    为什么LR能比线性回归好？  LR与MaxEnt的关系  并行化的LR  #1、 LR原理 一般来说，线性回归不能直接用于分类问题，因为回归是连续性模型，而且受噪音比较大。 我们一般选择logis">
+<meta name="twitter:description" content="参考： https://blog.csdn.net/cyh_24/article/details/50359055 LR需要了解的内容提纲  LR原理    LR的求解数学推导    LR的正则化    为什么LR能比线性回归好？  LR与MaxEnt的关系  并行化的LR  1、 LR原理一般来说，线性回归不能直接用于分类问题，因为回归是连续性模型，而且受噪音比较大。 我们一般选择logisti">
 <meta name="twitter:image" content="http://yoursite.com/Users/yanglijuan/Desktop/v1.png">
 
 
@@ -340,8 +340,7 @@
 <li>LR与MaxEnt的关系 </li>
 <li>并行化的LR</li>
 </ol>
-<p>#1、 LR原理</p>
-<p>一般来说，线性回归不能直接用于分类问题，因为回归是连续性模型，而且受噪音比较大。</p>
+<h1 id="1、-LR原理"><a href="#1、-LR原理" class="headerlink" title="1、 LR原理"></a>1、 LR原理</h1><p>一般来说，线性回归不能直接用于分类问题，因为回归是连续性模型，而且受噪音比较大。</p>
 <p>我们一般选择logistic回归来进行分类。logistic本质是线性回归，只是在特征到结果的映射中加入了一层映射函数。</p>
 <p>###逻辑斯蒂分布</p>
 <p>设X是连续随机变量，X服从逻辑斯蒂分布是指X具有下列的<strong>分布函数</strong>和<strong>密度函数</strong>： </p>
@@ -544,7 +543,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑斯蒂回归"><span class="nav-number">1.</span> <span class="nav-text">逻辑斯蒂回归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑斯蒂回归与线性回归"><span class="nav-number">2.</span> <span class="nav-text">逻辑斯蒂回归与线性回归</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、-LR原理"><span class="nav-number">1.</span> <span class="nav-text">1、 LR原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑斯蒂回归"><span class="nav-number">1.0.1.</span> <span class="nav-text">逻辑斯蒂回归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑斯蒂回归与线性回归"><span class="nav-number">1.0.2.</span> <span class="nav-text">逻辑斯蒂回归与线性回归</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -751,6 +750,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 
