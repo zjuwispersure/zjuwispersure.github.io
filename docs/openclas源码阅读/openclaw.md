@@ -1,3 +1,9 @@
+---
+title: "openclaw源码阅读-runEmbeddedAgent"          # 子页面的标题
+parent: "index"        # 必须与父页面的 title 完全一致
+nav_order: 1              # 可选，控制在该父页面下的子页面排序
+---
+
 # runEmbeddedAgent 流程图
 
 ## 统一流程图
