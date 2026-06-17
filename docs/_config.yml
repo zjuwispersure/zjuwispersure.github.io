@@ -1,3 +1,25 @@
 # Jekyll config for docs/ source build
 remote_theme: just-the-docs/just-the-docs
+
+# Site metadata
+title: sure
+description: OpenClaw 相关技术文档与源码阅读笔记
+url: https://zjuwispersure.github.io
+baseurl: ""
+lang: zh-CN
+
+# Navigation and reading experience
 nav_enabled: true
+nav_sort: case_insensitive
+search_enabled: true
+heading_anchors: true
+back_to_top: true
+back_to_top_text: 回到顶部
+
+# Header links
+aux_links:
+	GitHub 仓库: https://github.com/zjuwispersure/zjuwispersure.github.io
+aux_links_new_tab: true
+
+# Footer
+footer_content: "Copyright &copy; 2026 sure"
